@@ -24,7 +24,7 @@ pipeline {
             steps {
 
                 sh '''
-                    ./mvnw package -DskipTests 
+                    ./mvnw package -DskipTests \
                     -D quarkus.package.type=uber-jar
                 '''
 
