@@ -89,6 +89,25 @@ pipeline {
 
             }
         }
+        
+        stage('Deploy - Production') {
+
+            environment {
+
+                QUAY = credentials('QUAY_USER')
+            }
+
+            steps {
+
+                sh '''
+                    oc set image \
+                    deployment ${DEPLOYMENT_PRODUCTION} \
+                    shopping-cart-stage=quay.io/${QUAY_USR}/do400-deploying-environments:build-${BUILD_NUMBER} \
+                    -n ${APP_NAMESPACE_PRODUCTION} --record
+                '''
+
+            }
+        }
 
     }
 }
